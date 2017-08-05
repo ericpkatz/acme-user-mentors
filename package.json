@@ -4,14 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "DATABASE_URL=postgres://localhost/acme_users_mentors nodemon server",
+    "test:dev": "DATABASE_URL=postgres://localhost/acme_users_mentors_test ./node_modules/mocha/bin/mocha --recursive --watch --watch-extensions html,js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "express": "^4.15.3",
+    "faker": "^4.1.0",
     "pg": "^7.0.2",
-    "sequelize": "^4.4.2"
+    "sequelize": "^4.4.2",
+    "swig": "^1.4.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "mocha": "^3.5.0",
+    "supertest": "^3.0.0"
   }
 }
