@@ -6,10 +6,10 @@
     <div class='container'>
     <h1>Welcome to Acme User Mentors</h1>
     <ul class='nav nav-tabs'>
-      <li>
+      <li {% if url === '/'%}class='active'{% endif %}>
         <a href='/'>Home</a>
       </li>
-      <li>
+      <li {% if url === '/users'%}class='active'{% endif %}>
         <a href='/users'>Users</a>
       </li>
     </ul>

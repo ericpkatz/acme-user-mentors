@@ -1,0 +1,26 @@
+{% if user.mentorId %}
+  <div class='label label-default'>
+  Mentored by: 
+  {{ user.mentor.name }}
+  </div>
+  <p>
+  <form method='POST' action='/users/{{user.id}}?_method=PUT'>
+    <input type='hidden' name='mentorId' value=''/>
+    <button class='btn btn-warning'>
+      Remove Mentor
+    </button>
+  </form>
+  </p>
+{% endif %}
+{% if !user.mentorId && availableMentorsMap[user.id].length %}
+  <form method='POST' action='/users/{{user.id}}?_method=PUT' class='well'>
+    <div class='form-group'>
+    <select class='form-control' name='mentorId'>
+      {% for mentor in availableMentorsMap[user.id] %}
+        <option value='{{ mentor.id }}'>{{ mentor.name }}</option>
+      {% endfor %}
+    </select>
+    </div>
+    <button class='btn btn-primary btn-sm'>Set as mentor</button>
+  </form>
+{% endif %}

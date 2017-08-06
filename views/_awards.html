@@ -1,0 +1,13 @@
+<form method='post' action='/users/{{ user.id }}/awards'>
+  <button class='btn btn-primary btn-xs'>Create an award</button>
+</form>
+<ul>
+  {% for award in user.awards %}
+    <li>
+      {{ award.text }}
+      <form method='POST' action='/users/{{user.id}}/awards/{{award.id}}?_method=DELETE'>
+        <button class='btn btn-warning btn-xs'>Delete award</button>
+      </form>
+    </li>  
+  {% endfor %}
+</ul>
