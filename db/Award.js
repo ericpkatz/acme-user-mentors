@@ -12,4 +12,5 @@ const Award = conn.define('award', {
   }
 });
 
+
 module.exports = Award;

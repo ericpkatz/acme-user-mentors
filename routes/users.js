@@ -1,25 +1,50 @@
 const router = require('express').Router();
 
-
 const models = require('../db').models;
+const User = models.User;
+
+const redirect = (res)=> {
+  return ()=> {
+    res.redirect('/users');
+  };
+};
 
 router.get('/', (req, res, next)=> {
-  models.User.findAll({
-    include: [
-      models.Award,
-      {
-        model: models.User, as: 'mentees'
-      },
-      {
-        model: models.User, as: 'mentor'
-      }
-    ]
-  })
-  .then( users => {
-    const mentors = users.filter( user => user.awards.length >= 2);
-    res.render('users', { users, mentors });
-  })
-  .catch(next);
+  User.findUsersViewModel()
+    .then(( viewModel )=> {
+      res.render('users', viewModel);
+    })
+    .catch(next);
+});
+
+router.post('/', (req, res, next)=> {
+  User.create(req.body)
+    .then(redirect(res))
+    .catch(next);
+});
+
+router.delete('/:id', (req, res, next)=> {
+  User.destroyById(req.params.id)
+    .then(redirect(res))
+    .catch( next);
+});
+
+router.put('/:id', (req, res, next)=> {
+  User.updateUserFromRequestBody(req.params.id, req.body)
+    .then(redirect(res))
+    .catch(next);
+});
+
+router.post('/:id/awards', (req, res, next)=> {
+  User.generateAward(req.params.id)
+    .then(redirect(res))
+    .catch(next);
+});
+
+router.delete('/:userId/awards/:id', (req, res, next)=> {
+  User.removeAward(req.params.userId, req.params.id)
+    .then(redirect(res))
+    .catch( next);
 });
 
 module.exports = router;

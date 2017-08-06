@@ -6,14 +6,17 @@ module.exports = ({ User, Award })=> {
     User.create({ name: 'moe' }),
     User.create({ name: 'larry' }),
     User.create({ name: 'curly' }),
+    User.create({ name: 'shep' })
   ])
   .then( (result) => {
-    [moe, larry, curly] = result;
+    [moe, larry, curly, shep] = result;
   })
   .then( ()=> {
     return Promise.all([
       Award.create({ text: faker.company.catchPhrase(), userId: moe.id}),
-      Award.create({ text: faker.company.catchPhrase(), userId: moe.id})
+      Award.create({ text: faker.company.catchPhrase(), userId: moe.id}),
+      Award.create({ text: faker.company.catchPhrase(), userId: shep.id}),
+      Award.create({ text: faker.company.catchPhrase(), userId: shep.id})
     ]);
   })
   .then( ([ _award1, _award2])=> {
