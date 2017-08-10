@@ -18,10 +18,10 @@ describe('User', ()=> {
     expect(User).to.be.ok;
   });
 
-  it('there are three users', (done)=> {
+  it('there are four users', (done)=> {
     User.findAll()
       .then( users => {
-        expect(users.length).to.equal(3);
+        expect(users.length).to.equal(4);
         done();
       })
       .catch(done);

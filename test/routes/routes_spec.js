@@ -12,7 +12,6 @@ describe('routes', ()=> {
         .expect(200)
         .then( res => {
           expect(res.text).to.contain('moe');
-          expect(res.text).to.contain('Mentors 1');
         });
     });
   });

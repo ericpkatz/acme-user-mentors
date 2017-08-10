@@ -1,5 +1,19 @@
 <ul class='list-group'>
   <li class='list-group-item'>
+    <ul>
+      <li>
+        Repo name acme-user-mentors
+      </li>
+      <li>
+        Deploy to heroku
+      </li>
+      <li>
+        Seed your data
+      </li>
+    </ul>
+  </li>
+  <li class='list-group-item'>
+    Business rules:
     <pre>
 - only a user with 2 or more awards can be a mentor
 - a user can not mentor themselves
@@ -23,5 +37,68 @@
 - POST /users/:userId/awards
 - DELETE /users/:userId/awards/:id
     </pre>
+  <li class='list-group-item'>
+    Your router: routes/users.js
+    <pre>
+const router = require('express').Router();
+
+const models = require('../db').models;
+const User = models.User;
+
+const redirect = (res)=> {
+  return ()=> {
+    res.redirect('/users');
+  };
+};
+
+//READ
+router.get('/', (req, res, next)=> {
+  User.findUsersViewModel()
+    .then(( viewModel )=> {
+      res.render('users', viewModel);
+    })
+    .catch(next);
+});
+
+//CREATE
+router.post('/', (req, res, next)=> {
+  User.create(req.body)
+    .then(redirect(res))
+    .catch(next);
+});
+
+//DELETE
+router.delete('/:id', (req, res, next)=> {
+  User.destroyById(req.params.id)
+    .then(redirect(res))
+    .catch( next);
+});
+
+//UPDATE
+router.put('/:id', (req, res, next)=> {
+  User.updateUserFromRequestBody(req.params.id, req.body)
+    .then(redirect(res))
+    .catch(next);
+});
+
+//CREATE AWARD
+router.post('/:id/awards', (req, res, next)=> {
+  User.generateAward(req.params.id)
+    .then(redirect(res))
+    .catch(next);
+});
+
+//DELETE AWARD
+router.delete('/:userId/awards/:id', (req, res, next)=> {
+  User.removeAward(req.params.userId, req.params.id)
+    .then(redirect(res))
+    .catch( next);
+});
+
+module.exports = router;
+    </pre>
+  </li>
+  <li class='list-group-item'>
+    Write tests for all of the class methods used in the above router.
   </li>
 </ul>
