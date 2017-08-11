@@ -15,14 +15,57 @@
       </li>
       <li>
         If you need a reference point see: <a href='https://github.com/FullstackAcademy/1706-FSA-FLEX-NY/tree/master/12-a-wikistack-testing-refactor'>Wikistack Testing Refactor</a>
+        <br />
+        This <a href='https://github.com/FullstackAcademy/1706-FSA-FLEX-NY/blob/master/12-a-wikistack-testing-refactor/models/Page.js#L93-L111'>class method</a> shows how you can access other models from within a class method.
+        <br />
+        Here is a <a href='https://github.com/ericpkatz/foo-has-foos'>repo</a> that demonstrates a similar relationship to mentors and mentees.
+      </li>
+      <li>
+        Some hints:
+        <pre>
+- first step - creating and deleting users 
+- second step - creating and deleting awards 
+- third step - adding and removing mentors for a user
+- fourth step - focus on business rules
+
+- you are in control of how you want to pass data to the view.
+  Sometimes passing an array of objects makes sense.
+  Sometimes you might want to pass another data structure.
+  Try to keep the logic in your templates to be minimal.
+  If your templates get too complex you can always use partial templates.
+
+- The router code is provided in attempt to have you get used to 'thin' routes.
+  Class methods on your models will make your code more maintainable.
+  If the router code provided ends up tripping you up, then feel free to change it. 
+        </pre>
       </li>
     </ul>
+  </li>
+  <li class='list-group-item'>
+    List of modules you'll need
+    <pre>
+body-parser
+bootstrap
+express
+faker
+method-override
+pg
+sequelize
+swig
+    </pre>
+ and for testing
+ <pre>
+chai
+mocha
+supertest - *if you want to write a route test
+ </pre>
   </li>
   <li class='list-group-item'>
     Business rules:
     <pre>
 - only a user with 2 or more awards can be a mentor
 - a user can not mentor themselves
+- a key part of this is removing a users mentees if their award count falls below 2.
     </pre>
   </li>
   <li class='list-group-item'>
